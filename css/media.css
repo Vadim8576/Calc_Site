@@ -1,0 +1,571 @@
+/*==========  Desktop First Method  ==========*/
+
+
+
+@media only screen and (max-width : 8000px) {
+	html {
+		font-size: 18px;
+	}
+	
+	
+	.goto_play {
+		width: 300px;
+	}
+	
+	.screenshots_container img {
+		margin-bottom: 60px;
+		width: 400px;
+	}
+	
+	section p {
+    	/*font-size: 2rem;*/
+	}
+	
+	.logo_text {
+		font-size: 0.9rem;
+	}
+	
+}
+
+@media only screen and (min-width : 2500px) {
+	.logo_mnu_wrapper {
+	    height: 100px;
+	  }
+}
+
+
+/* Large Devices, Wide Screens */
+
+@media only screen and (max-width : 2500px) {
+	html {
+		font-size: 16px;
+	}
+	
+	.goto_play {
+		width: 250px;
+	}
+	
+	.screenshots_container img {
+		margin-bottom: 50px;
+		width: 300px;
+	}
+	
+	section p {
+    	/*font-size: 1.8rem;*/
+	}
+	
+	.logo_text {
+		font-size: 0.7rem;
+	}
+	
+	
+}
+
+
+
+
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 1600px) {
+	html {
+		font-size: 14px;
+	}
+	
+	.goto_play {
+		width: 220px;
+	}
+	
+	.screenshots_container img {
+		margin-bottom: 30px;
+		width: 200px;
+	}
+	
+	section p {
+    	/*font-size: 1.6rem;*/
+	}
+	
+	.logo_text {
+		font-size: 0.8rem;
+	}
+	
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 1200px) {
+	html {
+		font-size: 13px;
+	}
+	
+	.goto_play {
+		width: 180px;
+	}
+	
+	.screenshots_container img {
+		margin-bottom: 30px;
+		width: 200px;
+	}
+	
+	section p {
+    	/*font-size: 1.6rem;*/
+	}
+	
+	
+	
+	.logo_text {
+		font-size: 0.8rem;
+	}
+	
+}
+
+
+
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+
+	html {
+		font-size: 10px;
+	}
+	
+	.goto_play {
+		width: 180px;
+	}
+	
+	.screenshots_container{
+		column-gap: 80px;
+	}
+	
+	.screenshots_container img {
+		margin-bottom: 30px;
+		width: 180px;
+	}
+	
+	section p {
+    	/*font-size: 1.3rem;*/
+	}
+	
+	.slider {
+		height: 100%;
+	}
+	
+	/*
+	.logo_text {
+		font-size: 0.9rem;
+	}
+	*/
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+	
+	html {
+		font-size: 9px;
+	}
+	
+	
+	
+	.goto_play {
+		width: 180px;
+	}
+	
+	.why_container {
+		height: auto;
+	}
+	
+	.why_item {
+		width: 50%;
+	}
+	
+	
+	header h1 {
+		/*font-size: 3rem;*/
+		/*margin: 0;*/
+	}
+	
+	header h2 {
+		/*font-size: 1.6rem;*/
+	}
+	
+	section p {
+    	/*font-size: 1.5rem;*/
+	}
+	
+	.screenshots_container {
+		grid-template-columns: 30% 30%;
+		grid-template-areas:
+		"A B"
+		"C D"
+		"E F"
+		"G H"
+		"I I";
+	}
+	
+	.screenshots_container img {
+		margin-bottom: 30px;
+		width: 150px;
+	}
+	
+	.tittle_image_wrapper {
+		grid-template-columns: 90%; /* кол-во и ширина колонок*/
+		grid-template-rows: 0 40% 40% 20%; /* кол-во и высота колонок*/
+		grid-template-areas:
+		"A"
+		"B"
+		"C"
+		"D";
+		justify-items: center;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	.header_image {
+		display: none;
+	}
+
+
+
+	.header_title {
+		order: 1;
+		padding-right: 0;
+		text-align: center;
+		
+		align-content: center;
+		align-items: center;
+		
+		align-self: end;
+    	justify-self: center;
+	}
+
+
+	.header_text {
+		order: 3;
+	    padding: 0;
+        text-align: center;
+        align-self: start;
+	}
+
+	.btn_download_wrapper {
+		
+		order: 4;
+		padding-right: 0;
+		text-align: center;
+	}
+	
+	#download {
+		text-align: center;
+		/*height: 50px;*/
+	}
+
+/*
+	.logo_text {
+		font-size: 0.6rem;
+	}
+*/
+}
+
+
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 690px) {
+	html {
+		font-size: 8px;
+	}
+	
+	.help_container {
+		flex-direction: column;
+		/*align-items: start;*/
+	}
+	
+	.help_img {
+		padding: 20px 0;
+	}
+	
+	.header_title {
+		width: 80%;
+		text-align: center;
+    	padding: 0;
+    	align-self: end;
+    	justify-self: center;
+	}
+	
+	
+	
+
+	.header_image {
+    	/*width: 80%;
+    	height: 30%;*/
+    	margin: 0;
+    	
+    	
+	}
+	
+	
+	
+	
+	.phone {
+		
+    	height: 100%;
+	}
+	
+		
+
+	section h2 {
+    	/*font-size: 2.2rem;*/
+	}
+	
+	section h3 {
+    	/*font-size: 1.8rem;*/
+	}
+	
+	section p {
+    	/*font-size: 1.4rem;*/
+	}
+	
+	.small_info_items_text {
+		/*font-size: 1rem;*/
+	}
+
+
+	.small_info_items_text span {
+		/*font-size: 1.4rem;*/
+	}
+	
+	
+	.section_title {
+		padding: 10px 0 20px;
+    	
+    }
+    
+    .container {
+    	
+   		width: 90%;
+    	padding: 20px 0;
+	}
+	
+	
+	
+	.logo_mnu_wrapper {
+		height: 50px;
+	}
+	
+	#header.mini .header_wrapper {
+		height: 50px;
+	}
+	
+	
+	
+	
+	.logo a>img {
+    	height: 30px;
+	}
+	
+	/*
+	.logo_text {
+		font-size: 0.6rem;
+	}
+*/
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+
+	html {
+		font-size: 7px;
+	}
+	
+	
+	.why_container {
+		height: auto;
+	}
+	
+	.why_item {
+		width: 80%;
+		/*margin-bottom: 30px;*/
+		padding: 20px 0;
+	}
+	
+	
+	.why_icon img {
+		width: 40px;
+		height: 56px;
+
+	}
+	
+	.why_text {
+		font-size: 1.6rem;
+	}
+	
+	.screenshots_container {
+		display: block;
+		margin-bottom: 30px;
+	}
+	
+	.screenshots_container img {
+		margin-bottom: 50px;
+		width: 170px;
+	}
+	
+	section h2 {
+    	/*font-size: 2rem;*/
+	}
+	
+	section h3 {
+    	/*font-size: 1.4rem;*/
+	}
+	
+	section p {
+    	/*font-size: 1.2rem;*/
+	}
+	
+	#download {
+	    /*padding: 10px 20px;*/
+	}
+	
+	.small_info_wrapper {
+		height: auto;
+		padding: 20px 0;
+	}
+	
+	.small_info {
+		flex-direction: column;
+		
+	}
+	
+    
+    .small_info_items { 
+    	
+    	border: none;
+    	border-bottom: 1px #bebebe solid;
+    	width: 100%;
+    	padding: 10px 0;
+    	
+	}
+
+	.small_info_items:last-child {
+    	border: none;
+
+    }
+    
+    .small_info_items_text {
+		/*font-size: 1.2rem;*/
+	}
+
+
+	.small_info_items_text span {
+		/*font-size: 1.6rem;*/
+	}
+	
+	
+}
+
+
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 400px) {
+
+	html {
+		font-size: 6.5px;
+	}
+	
+	header h1 {
+		/*font-size: 2.6rem;*/
+	}
+	
+	header h2 {
+		/*font-size: 1.8rem;*/
+	}
+	
+	
+
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 380px) {
+
+	html {
+		font-size: 6px;
+	}
+	
+	header h1 {
+		/*font-size: 2rem;*/
+		margin: 20px 0;
+	}
+	
+	header h2 {
+		/*font-size: 1.2rem;*/
+		margin: 10px 0 20px;
+	}
+	
+	button#download {
+    	/*padding: 10px 15px*/
+    }
+    
+    section h2 {
+    	/*font-size: 1.6rem;*/
+	}
+	
+	section h3 {
+    	/*font-size: 1rem;*/
+	}
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 300px) {
+
+	html {
+		font-size: 5px;
+	}
+	
+	header h1 {
+		/*font-size: 2rem;*/
+	}
+	
+	header h2 {
+		/*font-size: 1.4rem;*/
+	}
+}
+
+
+/*==========  Mobile First Method  ==========*/
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) {
+	
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 360px) {
+	
+}
+
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 590px) {
+	
+}
+
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+	
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+	
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 960px) {
+	
+}
+
+ /* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+	
+}
