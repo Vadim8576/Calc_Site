@@ -7,6 +7,7 @@ const interval = 3000; // интервал анимации (3000 = 3 сек)
 let item = 0; // начальный слайд
 
 
+// ----------------------  Слайдер в шапке
 
 const run = () => {
     slide[item] && slide[item].classList.remove('on');
@@ -21,7 +22,7 @@ let timer = setInterval(run, interval);
 // run();
 
 
-const next = (e) => {
+const nextSlide = (e) => {
     const t = e.target;
 
     if(t.id == 'left_btn') {
@@ -44,55 +45,85 @@ const next = (e) => {
 
 const intervalClear = () => {
     clearInterval(timer);
+    timer = null;
 }
 
 
 click[0].addEventListener('mousedown', intervalClear);
-click[0].addEventListener('mouseup', next);
+click[0].addEventListener('mouseup', nextSlide);
 
 
 
 
+// --------------------------------------- Слайдер скриншотов 
 
+const screenshots = document.querySelectorAll('[class^="screenshot-"]>img');			
+const popup_shadow = document.getElementById('popup_shadow');	
+const img_container = document.getElementById('img_container');
 
-let screen_shot = document.querySelectorAll('[class^="screenshot-"]>img');
-console.log(screen_shot);
-
-for(let scr_shot of screen_shot) {
-	scr_shot.addEventListener('click', function(e){
-		console.log(e.target);
-		const popup_shadow = document.createElement('div');
-		popup_shadow.className = 'popup_shadow';
-		document.body.appendChild(popup_shadow);
+for(let scr_shot of screenshots) {
+	//scr_shot.addEventListener('load', function() {
+		console.log('Preview фото загрузились');
+	
+		scr_shot.addEventListener('click', function(e){
+			const photo = new Image();
+			
+			
+			const lastIndx = e.target.src.lastIndexOf('/');
+			let url = e.target.src.slice(lastIndx).slice(1);
+			url = 'img/ScreenShots/zoom/zoom_' + url;
+			
+			//console.log(e.target);
+			
+			photo.src = url;
+			
+			photo.className = 'zero';
 		
-		const img_container = document.createElement('div');
-		img_container.className = 'img_container';
-		popup_shadow.appendChild(img_container);
-		
-		
-		//e.target.classList.add('zoom');
-		
-		console.log(e.path[0].src);
-		
-		const photo = new Image();
-		photo.src = e.path[0].src;
-		photo.className = 'zero';
-		
-		img_container.appendChild(photo);
-		
-		let t = setTimeout(function() {
-			//photo.classList.contains('zero') &&	photo.classList.remove('zero');
-			photo.classList.add('zoom');
 			popup_shadow.classList.add('dark');
-		}, 10);
+			
 		
-	}, false)
+			const close_btn = document.createElement('div');
+			close_btn.className = 'close_btn';
+			
+			const close_btn_hor = document.createElement('div');
+			close_btn_hor.className = 'close_btn_hor';
+			
+			const close_btn_vert = document.createElement('div');
+			close_btn_vert.className = 'close_btn_vert';
+			
+			close_btn.appendChild(close_btn_hor);
+			close_btn.appendChild(close_btn_vert);
+			
+		
+			
+			//console.log('Увеличенное фото загрузилось');
+			img_container.appendChild(photo);
+			img_container.appendChild(close_btn);
+			
+			let t = setTimeout(function() {
+				photo.classList.add('zoom');		
+			}, 10);
+			
+			
+			
+			let height = window.innerHeight;
+			let h = getComputedStyle(this).height.replace('px', '');
+			let yy = this.offsetTop - height / 2 + h / 2;
+			scrollTo({
+				top: yy,
+				behavior: 'smooth'
+			});
+		
+		}, false)
+		
+	//}, false);
 }
 
 
 
 
-// Скролл к якорю
+
+// ---------------------------------------- Скролл к якорю
 const logo_mnu_wrapper = document.getElementsByClassName('logo_mnu_wrapper')[0];
 const mnu = document.getElementsByClassName('mnu')[0];
 const mnu_btn = document.getElementById('mnu_btn');
@@ -120,7 +151,9 @@ for(let anchor of anchors) {
 }
 
 
-let temp_headerHeight = headerHeight;
+
+
+
 
 
 // Размеры шапки
@@ -134,9 +167,6 @@ function onscroll() {
 	
 	let y;
 	y = headerHeight - logo_mnu_height;
-	
-	console.log(s, y, logo_mnu_height, headerHeight, temp_headerHeight);
-
 	
 	
 	//mini
@@ -183,8 +213,15 @@ function resize() {
 		mnuToMaxi();
 	}
 	
+	if(width <= 768) {
+		intervalClear();
+		console.log(timer);
+	}
 	
-	
+	if(width > 768 && !timer) {
+		timer = setInterval(run, interval);
+		console.log(timer);
+	}
 	onscroll();
 
 }
@@ -203,6 +240,7 @@ function mnuToMaxi() {
 
 
 
+// ---------------- Клики по меню
 
 document.addEventListener('click', function(e){
 		let width = window.innerWidth;
@@ -227,6 +265,14 @@ document.addEventListener('click', function(e){
 			shadow.classList.contains('active') && shadow.classList.remove('active');
 			if(width > 768) mnuToMaxi();
 		}
+		
+		if(target.id == 'popup_shadow' || target.classList.contains('close_btn')) {
+			popup_shadow.classList.contains('dark') && popup_shadow.classList.remove('dark');
+			img_container.innerHTML = '';
+		}
+		
+		
+		
 		
 	});
 
