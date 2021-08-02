@@ -14,7 +14,7 @@
 	
 	.screenshots_container img {
 		/*margin-bottom: 60px;*/
-		width: 400px;
+		width: 200px;
 	}
 	
 	section p {
@@ -28,7 +28,6 @@
 	.close_btn {
 		width: 47px;
 		height: 47px;
-		right: -47px;
 	}
 	
 }
@@ -53,7 +52,7 @@
 	
 	.screenshots_container img {
 		/*margin-bottom: 50px;*/
-		width: 300px;
+		width: 150px;
 	}
 	
 	section p {
@@ -67,7 +66,6 @@
 	.close_btn {
 		width: 37px;
 		height: 37px;
-		right: -37px;
 	}
 }
 
@@ -78,7 +76,7 @@
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 1600px) {
 	html {
-		font-size: 14px;
+		font-size: 12px;
 	}
 	
 	.goto_play {
@@ -87,7 +85,7 @@
 	
 	.screenshots_container img {
 		/*margin-bottom: 30px;*/
-		width: 200px;
+		width: 120px;
 	}
 	
 	section p {
@@ -112,7 +110,7 @@
 	
 	.screenshots_container img {
 		/*margin-bottom: 30px;*/
-		width: 200px;
+		width: 120px;
 	}
 	
 	section p {
@@ -125,7 +123,51 @@
 		font-size: 0.8rem;
 	}
 	
+	.why_container {
+		
+		flex-direction: row;
+		height: auto;
+	}
+
+	.why_item {
+		padding: 25px 0;
+		/* flex-direction: row-reverse; */
+	}
+
+	.why_item.left_side {
+		flex-direction: row-reverse;
+	}
+
+	.why_text {
+		width: 270px;
+	}
 	
+	.why_text.align_right {
+	
+		text-align: left;
+		padding-left: 15px;
+		padding-right: 0;
+	}
+	
+	.why_text.align_left {
+		
+		text-align: left;
+		padding-left: 15px;
+		padding-right: 0;
+	}
+
+	.circle {
+		width: 50px;
+		margin: 0;
+		/* margin: 0;
+		width: 180px;
+		height: 180px; */
+	}
+	
+	.calc {
+		display: none;
+		width: 60px;
+	}
 	
 }
 
@@ -136,9 +178,21 @@
 @media only screen and (max-width : 992px) {
 
 	html {
-		font-size: 11px;
+		font-size: 10px;
 	}
 	
+	.why_container {
+		
+		flex-direction: column;
+		height: auto;
+	}
+
+
+	.why_item_wrapper.calc_img {
+		display: none
+	}
+	
+
 	.goto_play {
 		width: 180px;
 	}
@@ -149,7 +203,7 @@
 	
 	.screenshots_container img {
 		/*margin-bottom: 30px;*/
-		width: 180px;
+		width: 110px;
 	}
 	
 	section p {
@@ -170,7 +224,6 @@
 		
 		width: 27px;
 		height: 27px;
-		right: -27px;
 	}
 }
 
@@ -197,7 +250,7 @@
 	
 	.screenshots_container img {
 		/*margin-bottom: 30px;*/
-		width: 180px;
+		width: 110px;
 	}
 	
 	.screenshots_container{
@@ -214,11 +267,12 @@
 	}
 	
 	.why_item {
-		width: 45%;
+		/* width: 45%; */
+		padding: 10px 0;
 	}
 	
 	.why_text {
-    	height: 130px;
+    	height: 70px;
 	}
 	
 	header h1 {
@@ -376,7 +430,7 @@
 	
 	
 	.section_title {
-		padding: 10px 0 20px;
+		padding: 30px 0 20px;
     	
     }
     
@@ -425,7 +479,7 @@
 	}
 	
 	.why_item {
-		width: 60%;
+		/* width: 60%; */
 		/*margin-bottom: 30px;*/
 		padding: 20px 0;
 	}
@@ -435,8 +489,8 @@
 	
 	}
 	.why_icon img {
-		width: 50px;
-		/*height: 56px;*/
+		width: 22px;
+		
 
 	}
 	
@@ -445,7 +499,11 @@
 
 	}
 
+	.circle_icon {
+		width: 50px;
+		height: 50px;
 
+	}
 	.why_icon .so_small img {
 		width: 45px;
 
@@ -454,7 +512,7 @@
 	
 	.why_text {
 		font-size: 1.5rem;
-		height: 100px
+		/* height: 100px */
 	}
 	
 	
@@ -465,7 +523,7 @@
 	}
 	
 	.screenshots_container img {
-		width: 250px;
+		width: 150px;
 		margin-bottom: 40px;
 	}
 	
@@ -580,12 +638,12 @@
 	}
 	
 	.close_btn {
-		right: 0;
-		background-color: rgba(0, 0, 0, .7);
+		/* right: 0; */
+		/* background-color: rgba(0, 0, 0, .7); */
 	}
 	
 	.screenshots_container img {
-		width: 180px;
+		width: 140px;
 	}
 	
 	header h1 {
@@ -609,6 +667,22 @@
 	section h3 {
     	/*font-size: 1rem;*/
 	}
+
+	.why_text {
+		width: 220px;
+		height: 40px;
+	}
+	
+
+	.circle_icon {
+		width: 46px;
+		height: 46px;
+
+	}
+
+	.circle_icon img {
+		width: 20px;
+	}
 }
 
 /* Custom, iPhone Retina */
@@ -629,7 +703,14 @@
 	}
 	
 	
-	
+	.why_text {
+		width: 160px;
+	}
+
+
+	.screenshots_container img {
+		width: 110px;
+	}
 
 }
 

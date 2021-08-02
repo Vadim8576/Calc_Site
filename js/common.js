@@ -58,67 +58,113 @@ click[0].addEventListener('mouseup', nextSlide);
 // --------------------------------------- Слайдер скриншотов 
 
 const screenshots = document.querySelectorAll('[class^="screenshot-"]>img');			
+
+console.log(screenshots);
+
+const screenshots_zoom = document.querySelectorAll('#img_container>img');
+
+console.log(screenshots_zoom);
+
 const popup_shadow = document.getElementById('popup_shadow');	
 const img_container = document.getElementById('img_container');
 
-for(let scr_shot of screenshots) {
-	//scr_shot.addEventListener('load', function() {
-		console.log('Preview фото загрузились');
+
+
+
 	
-		scr_shot.addEventListener('click', function(e){
-			const photo = new Image();
-			
-			
-			const lastIndx = e.target.src.lastIndexOf('/');
-			let url = e.target.src.slice(lastIndx).slice(1);
-			url = 'img/ScreenShots/zoom/zoom_' + url;
-			
-			//console.log(e.target);
-			
-			photo.src = url;
-			
-			photo.className = 'zero';
+for(let i = 0; i<screenshots.length; i++) {
+	console.log('Preview фото загрузились');
 		
-			popup_shadow.classList.add('dark');
+	screenshots[i].addEventListener('click', function(e){
 			
+		// const photo = new Image();		
+		// const lastIndx = e.target.src.lastIndexOf('/');
+		// let url = e.target.src.slice(lastIndx).slice(1);
+		// url = 'img/ScreenShots/zoom/zoom_' + url;			
+		// photo.src = url;
+			
+		popup_shadow.classList.add('dark');
+				
+			
+		// Создаем кнопку Закрыть
+		// const close_btn = document.createElement('div');
+		// close_btn.className = 'close_btn';			
+		// const close_btn_hor = document.createElement('div');
+		// close_btn_hor.className = 'close_btn_hor';			
+		// const close_btn_vert = document.createElement('div');
+		// close_btn_vert.className = 'close_btn_vert';			
+		// close_btn.appendChild(close_btn_hor);
+		// close_btn.appendChild(close_btn_vert);				
+		// img_container.appendChild(close_btn);
+		//----------------------------------------
+				
 		
-			const close_btn = document.createElement('div');
-			close_btn.className = 'close_btn';
-			
-			const close_btn_hor = document.createElement('div');
-			close_btn_hor.className = 'close_btn_hor';
-			
-			const close_btn_vert = document.createElement('div');
-			close_btn_vert.className = 'close_btn_vert';
-			
-			close_btn.appendChild(close_btn_hor);
-			close_btn.appendChild(close_btn_vert);
-			
+				
+				
+		//Скролл, чтобы скриншот был посередине	
+		let height = window.innerHeight;
+
+		let h = getComputedStyle(this).height.replace('px', '');
+		let yy = this.offsetTop - height / 2 + h / 2;
+		scrollTo({
+			top: yy,
+			behavior: 'smooth'
+		});
 		
+		console.log(zoomCalculate().width);
+
+		img_container.style.width = zoomCalculate().width + 'px';
+		img_container.style.height = zoomCalculate().height + 'px';
+		screenshots_zoom[i].style.width = zoomCalculate().width + 'px';
+		screenshots_zoom[i].style.height = zoomCalculate().height + 'px';
+
+		let t = setTimeout(function() {
+			screenshots_zoom[i].classList.add('zoom');		
+		}, 10);
+
+	}, false)
 			
-			//console.log('Увеличенное фото загрузилось');
-			img_container.appendChild(photo);
-			img_container.appendChild(close_btn);
-			
-			let t = setTimeout(function() {
-				photo.classList.add('zoom');		
-			}, 10);
-			
-			
-			
-			let height = window.innerHeight;
-			let h = getComputedStyle(this).height.replace('px', '');
-			let yy = this.offsetTop - height / 2 + h / 2;
-			scrollTo({
-				top: yy,
-				behavior: 'smooth'
-			});
-		
-		}, false)
-		
-	//}, false);
 }
 
+
+function zoomCalculate() {
+	let width = window.innerWidth;
+	let height = window.innerHeight;
+	let zoom_h, zoom_w;
+	const k = 520/248; // Соотношение сторон
+	//Определяем ширину увеличенного скриншота
+	if(height > width) {
+		//портретная ариентация
+		zoom_h = height * 0.85;
+		zoom_w = height * k;
+		if(zoom_w > width - 60) {
+			zoom_w = width - 60; // 60 - размер кнопки закрыть
+			zoom_h = zoom_w * k;
+			if(zoom_h > height * 0.85) {
+				zoom_h = height * 0.85;
+				zoom_w = zoom_h / k;
+			}
+		}
+
+	} else {
+		zoom_h = height * 0.85;
+		zoom_w = zoom_h / k;
+	}
+	
+
+	return {width: zoom_w, height: zoom_h};
+}
+
+
+
+function clearZoom() {
+	for(let i of screenshots_zoom) {
+		i.classList.contains('zoom') && i.classList.remove('zoom');
+		i.style.width = '0';
+		i.style.height = '0';
+
+	}
+}
 
 
 
@@ -189,6 +235,17 @@ function onscroll() {
 
 window.onresize = () => {	
 	resize();
+	for(let screenshot of screenshots_zoom) {
+		if(screenshot.classList.contains('zoom')) {
+			let w = zoomCalculate().width;
+			let h = zoomCalculate().height;
+			screenshot.style.width = w + 'px';
+			screenshot.style.height = h + 'px';
+			img_container.style.width = w + 'px';
+			img_container.style.height = h + 'px';
+		}	
+	}
+	
 }
 
 resize();
@@ -215,7 +272,6 @@ function resize() {
 	
 	if(width <= 768) {
 		intervalClear();
-		console.log(timer);
 	}
 	
 	if(width > 768 && !timer) {
@@ -268,7 +324,8 @@ document.addEventListener('click', function(e){
 		
 		if(target.id == 'popup_shadow' || target.classList.contains('close_btn')) {
 			popup_shadow.classList.contains('dark') && popup_shadow.classList.remove('dark');
-			img_container.innerHTML = '';
+			// img_container.innerHTML = '';
+			clearZoom();
 		}
 		
 		
