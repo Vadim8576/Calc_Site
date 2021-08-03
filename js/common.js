@@ -7,138 +7,154 @@ const interval = 3000; // интервал анимации (3000 = 3 сек)
 let item = 0; // начальный слайд
 
 
-// ----------------------  Слайдер в шапке
+
+	const screenshots = document.querySelectorAll('[class^="screenshot-"]>img');			
+
+	// console.log(screenshots);
+
+	const screenshots_zoom = document.querySelectorAll('#img_container>img');
+
+	// console.log(screenshots_zoom);
+
+	const popup_shadow = document.getElementById('popup_shadow');	
+	const img_container = document.getElementById('img_container');
+
+	// const nav_btn = document.getElementsByClassName('nav_btn')[0];
+	// const prev_btn = document.getElementsByClassName('prev_btn')[0];
+	// const next_btn = document.getElementsByClassName('next_btn')[0];
+
+
+
+let timer;
+
 
 const run = () => {
-    slide[item] && slide[item].classList.remove('on');
-    item++;
-    if(item > count-1) item = 0;
-    slide[item] && slide[item].classList.add('on');
+	slide[item] && slide[item].classList.remove('on');
+	item++;
+	if(item > count-1) item = 0;
+	slide[item] && slide[item].classList.add('on');
 }
 
 
-let timer = setInterval(run, interval);
-
-// run();
-
-
-const nextSlide = (e) => {
-    const t = e.target;
-
-    if(t.id == 'left_btn') {
-        slide[item] && slide[item].classList.remove('on');
-        item -= 1;
-    }
-
-    if(t.id == 'right_btn') {
-        slide[item] && slide[item].classList.remove('on');
-        item += 1;
-    }
-
-    if(item < 0) item = count-1; 
-    if(item > count-1) item = 0; 
-
-    slide[item] && slide[item].classList.add('on');
-
-    timer = setInterval(run, interval);
-}
 
 const intervalClear = () => {
-    clearInterval(timer);
-    timer = null;
+	clearInterval(timer);
+	timer = null;
+	
 }
 
 
-click[0].addEventListener('mousedown', intervalClear);
-click[0].addEventListener('mouseup', nextSlide);
+
+let screenshot_number;
 
 
+window.onload = function() {
+	// ----------------------  Слайдер в шапке
 
+	const nextSlide = (e) => {
+		const t = e.target;
 
-// --------------------------------------- Слайдер скриншотов 
+		if(t.id == 'left_btn') {
+			slide[item] && slide[item].classList.remove('on');
+			item -= 1;
+		}
 
-const screenshots = document.querySelectorAll('[class^="screenshot-"]>img');			
+		if(t.id == 'right_btn') {
+			slide[item] && slide[item].classList.remove('on');
+			item += 1;
+		}
 
-console.log(screenshots);
+		if(item < 0) item = count-1; 
+		if(item > count-1) item = 0; 
 
-const screenshots_zoom = document.querySelectorAll('#img_container>img');
+		slide[item] && slide[item].classList.add('on');
 
-console.log(screenshots_zoom);
-
-const popup_shadow = document.getElementById('popup_shadow');	
-const img_container = document.getElementById('img_container');
-
-
-
+		timer = setInterval(run, interval);
+	}
 
 	
-for(let i = 0; i<screenshots.length; i++) {
-	console.log('Preview фото загрузились');
+
+
+	click[0].addEventListener('mousedown', intervalClear);
+	click[0].addEventListener('mouseup', nextSlide);
+
+
+
+
+	// --------------------------------------- Слайдер скриншотов 
+
 		
-	screenshots[i].addEventListener('click', function(e){
-			
-		// const photo = new Image();		
-		// const lastIndx = e.target.src.lastIndexOf('/');
-		// let url = e.target.src.slice(lastIndx).slice(1);
-		// url = 'img/ScreenShots/zoom/zoom_' + url;			
-		// photo.src = url;
-			
-		popup_shadow.classList.add('dark');
-				
-			
-		// Создаем кнопку Закрыть
-		// const close_btn = document.createElement('div');
-		// close_btn.className = 'close_btn';			
-		// const close_btn_hor = document.createElement('div');
-		// close_btn_hor.className = 'close_btn_hor';			
-		// const close_btn_vert = document.createElement('div');
-		// close_btn_vert.className = 'close_btn_vert';			
-		// close_btn.appendChild(close_btn_hor);
-		// close_btn.appendChild(close_btn_vert);				
-		// img_container.appendChild(close_btn);
-		//----------------------------------------
-				
-		
-				
-				
-		//Скролл, чтобы скриншот был посередине	
-		let height = window.innerHeight;
+	for(let i = 0; i<screenshots.length; i++) {
+		// console.log('Preview фото загрузились');
 
-		let h = getComputedStyle(this).height.replace('px', '');
-		let yy = this.offsetTop - height / 2 + h / 2;
-		scrollTo({
-			top: yy,
-			behavior: 'smooth'
-		});
-		
-		console.log(zoomCalculate().width);
-
-		img_container.style.width = zoomCalculate().width + 'px';
-		img_container.style.height = zoomCalculate().height + 'px';
-		screenshots_zoom[i].style.width = zoomCalculate().width + 'px';
-		screenshots_zoom[i].style.height = zoomCalculate().height + 'px';
-
-		let t = setTimeout(function() {
-			screenshots_zoom[i].classList.add('zoom');		
-		}, 10);
-
-	}, false)
+		screenshots[i].addEventListener('click', function(e){
+				
+			popup_shadow.classList.add('dark');
+								
+			//Скролл, чтобы скриншот был посередине	
+			let height = window.innerHeight;
+			let h = getComputedStyle(this).height.replace('px', '');
+			let yy = this.offsetTop - height / 2 + h / 2;
+			scrollTo({
+				top: yy,
+				behavior: 'smooth'
+			});
 			
+			screenshot_number = i;
+			zoomNow(i);
+
+		}, false)
+				
+	}
+
+	
+
 }
 
 
-function zoomCalculate() {
+function zoomNow(i) {
+	let www = zoomCalculate(screenshots_zoom[i]).width;
+	let hhh = zoomCalculate(screenshots_zoom[i]).height;
+
+	screenshots_zoom[i].style.width = www + 'px';
+	screenshots_zoom[i].style.height = hhh + 'px';
+
+	let t = setTimeout(function() {
+		screenshots_zoom[i].classList.add('zoom');		
+	}, 10);
+}
+
+
+function clearZoom() {
+	for(let i of screenshots_zoom) {
+		i.classList.contains('zoom') && i.classList.remove('zoom');
+		i.style.width = '0';
+		i.style.height = '0';
+	}
+}
+
+
+
+function zoomCalculate(screenshots_zoom) {
+
+	let www = screenshots_zoom.naturalWidth;
+	let hhh = screenshots_zoom.naturalHeight;
+
+	// console.log(screenshots_zoom);
+	// console.log(www, hhh);
+
 	let width = window.innerWidth;
 	let height = window.innerHeight;
 	let zoom_h, zoom_w;
-	const k = 520/248; // Соотношение сторон
+	const k = hhh/www; // Соотношение сторон
+	console.log(k);
 	//Определяем ширину увеличенного скриншота
 	if(height > width) {
 		//портретная ариентация
-		zoom_h = height * 0.85;
+		zoom_h = height * 0.85; // 0.85 - процент от высоты окна
 		zoom_w = height * k;
-		if(zoom_w > width - 60) {
-			zoom_w = width - 60; // 60 - размер кнопки закрыть
+		if(zoom_w > width - 100) {
+			zoom_w = width - 100; // 60 - размер кнопки закрыть
 			zoom_h = zoom_w * k;
 			if(zoom_h > height * 0.85) {
 				zoom_h = height * 0.85;
@@ -151,20 +167,9 @@ function zoomCalculate() {
 		zoom_w = zoom_h / k;
 	}
 	
-
 	return {width: zoom_w, height: zoom_h};
 }
 
-
-
-function clearZoom() {
-	for(let i of screenshots_zoom) {
-		i.classList.contains('zoom') && i.classList.remove('zoom');
-		i.style.width = '0';
-		i.style.height = '0';
-
-	}
-}
 
 
 
@@ -237,8 +242,8 @@ window.onresize = () => {
 	resize();
 	for(let screenshot of screenshots_zoom) {
 		if(screenshot.classList.contains('zoom')) {
-			let w = zoomCalculate().width;
-			let h = zoomCalculate().height;
+			let w = zoomCalculate(screenshot).width;
+			let h = zoomCalculate(screenshot).height;
 			screenshot.style.width = w + 'px';
 			screenshot.style.height = h + 'px';
 			img_container.style.width = w + 'px';
@@ -270,13 +275,16 @@ function resize() {
 		mnuToMaxi();
 	}
 	
+	
+
 	if(width <= 768) {
 		intervalClear();
+		console.log(timer);
 	}
 	
 	if(width > 768 && !timer) {
 		timer = setInterval(run, interval);
-		console.log(timer);
+		 console.log(timer);
 	}
 	onscroll();
 
@@ -327,8 +335,20 @@ document.addEventListener('click', function(e){
 			// img_container.innerHTML = '';
 			clearZoom();
 		}
+
+		if(target.classList == 'prev_btn') {
+			screenshot_number--;
+			if(screenshot_number < 0) screenshot_number = screenshots_zoom.length - 1;
+			clearZoom();
+			zoomNow(screenshot_number);
+		}
 		
-		
+		if(target.classList == 'next_btn') {
+			screenshot_number++;
+			if(screenshot_number > screenshots_zoom.length - 1) screenshot_number = 0;
+			clearZoom();
+			zoomNow(screenshot_number);
+		}
 		
 		
 	});
