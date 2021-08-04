@@ -30,6 +30,11 @@
 		height: 47px; */
 	}
 	
+	.main_phone_back {
+    	width: 350px;
+    	height: 703px;
+    }
+	
 }
 
 @media only screen and (min-width : 2500px) {
@@ -95,6 +100,11 @@
 	.logo_text {
 		font-size: 0.8rem;
 	}
+	
+	.main_phone_back {
+    	width: 276px;
+    	height: 555px;
+    }
 	
 }
 
@@ -180,6 +190,11 @@
 	html {
 		font-size: 10px;
 	}
+	
+	.main_phone_back {
+    	width: 220px;
+    	height: 443px;
+    }
 	
 	.why_container {
 		
@@ -480,6 +495,7 @@
 	
 	.why_item {
 		/* width: 60%; */
+		height: 100px;
 		/*margin-bottom: 30px;*/
 		padding: 20px 0;
 	}

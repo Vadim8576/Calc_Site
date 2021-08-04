@@ -1,5 +1,6 @@
 
-const click = document.getElementsByClassName('slider_container');
+//const click = document.getElementsByClassName('slider_container');
+//const slide = document.getElementsByClassName('main_phone_back')[0];
 const slide = document.getElementsByClassName('slide');
 
 const count = slide.length; // количество слайдов
@@ -18,6 +19,8 @@ let item = 0; // начальный слайд
 
 	const popup_shadow = document.getElementById('popup_shadow');	
 	const img_container = document.getElementById('img_container');
+	const zoom_screen_wrapper = document.getElementsByClassName('zoom_screen_wrapper')[0];
+	
 
 	// const nav_btn = document.getElementsByClassName('nav_btn')[0];
 	// const prev_btn = document.getElementsByClassName('prev_btn')[0];
@@ -28,7 +31,7 @@ let item = 0; // начальный слайд
 let timer;
 
 
-const run = () => {
+const run = () => {	
 	slide[item] && slide[item].classList.remove('on');
 	item++;
 	if(item > count-1) item = 0;
@@ -51,9 +54,9 @@ let screenshot_number;
 window.onload = function() {
 	// ----------------------  Слайдер в шапке
 
-	const nextSlide = (e) => {
+	const nextSlide = () => {
 		const t = e.target;
-
+/*
 		if(t.id == 'left_btn') {
 			slide[item] && slide[item].classList.remove('on');
 			item -= 1;
@@ -63,7 +66,7 @@ window.onload = function() {
 			slide[item] && slide[item].classList.remove('on');
 			item += 1;
 		}
-
+*/
 		if(item < 0) item = count-1; 
 		if(item > count-1) item = 0; 
 
@@ -74,15 +77,14 @@ window.onload = function() {
 
 	
 
-
+/*
 	click[0].addEventListener('mousedown', intervalClear);
 	click[0].addEventListener('mouseup', nextSlide);
 
+*/
 
 
-
-	// --------------------------------------- Слайдер скриншотов 
-
+// --------------------------------------- Слайдер скриншотов 
 		
 	for(let i = 0; i<screenshots.length; i++) {
 		// console.log('Preview фото загрузились');
@@ -95,10 +97,28 @@ window.onload = function() {
 			let height = window.innerHeight;
 			let h = getComputedStyle(this).height.replace('px', '');
 			let yy = this.offsetTop - height / 2 + h / 2;
+			
+			
+			
+			/*
+			
 			scrollTo({
 				top: yy,
 				behavior: 'smooth'
 			});
+			*/
+			
+			try {
+				window.scrollTo({
+					top: yy,
+					behavior: 'smooth'
+				
+				});	
+			} catch(err){
+				console.log(err);
+				window.scrollTo(0, yy);
+			}
+			
 			
 			screenshot_number = i;
 			zoomNow(i);
@@ -107,17 +127,18 @@ window.onload = function() {
 				
 	}
 
-	
-
 }
 
 
 function zoomNow(i) {
 	let www = zoomCalculate(screenshots_zoom[i]).width;
 	let hhh = zoomCalculate(screenshots_zoom[i]).height;
-
+	zoom_screen_wrapper.style.width = (www + 100) + 'px'; 
+	zoom_screen_wrapper.style.height = hhh + 'px';
 	screenshots_zoom[i].style.width = www + 'px';
 	screenshots_zoom[i].style.height = hhh + 'px';
+	img_container.style.width = www + 'px';
+	img_container.style.height = hhh + 'px';
 
 	let t = setTimeout(function() {
 		screenshots_zoom[i].classList.add('zoom');		
@@ -139,9 +160,6 @@ function zoomCalculate(screenshots_zoom) {
 
 	let www = screenshots_zoom.naturalWidth;
 	let hhh = screenshots_zoom.naturalHeight;
-
-	// console.log(screenshots_zoom);
-	// console.log(www, hhh);
 
 	let width = window.innerWidth;
 	let height = window.innerHeight;
@@ -167,6 +185,11 @@ function zoomCalculate(screenshots_zoom) {
 		zoom_w = zoom_h / k;
 	}
 	
+	if(zoom_w < 50) {
+		zoom_w = 50;
+		zoom_h = zoom_w * k;
+	}
+	
 	return {width: zoom_w, height: zoom_h};
 }
 
@@ -188,26 +211,40 @@ let logo_mnu_height = +getComputedStyle(logo_mnu_wrapper).height.replace('px', '
 let headerHeight = +getComputedStyle(header).height.replace('px', '');
 
 
+
 for(let anchor of anchors) {
 	anchor.addEventListener('click', function(e){
 		e.preventDefault();
 		const block_y = document.getElementById(this.getAttribute('href').substr(1)).offsetTop - logo_mnu_height;
-		
-		scrollTo({
+		/*
+		window.scrollTo({
 				top: block_y,
 				behavior: 'smooth'
 				
-		});		
+		});	
+		*/
+		//window.scrollTo(0, block_y);		
+		
+		try {
+			window.scrollTo({
+				top: block_y,
+				behavior: 'smooth'
+				
+			});	
+		} catch(err){
+			console.log(err);
+			window.scrollTo(0, block_y);
+		}
 	});	
 }
 
+//-----------------------------------------------------------
 
 
 
 
 
 
-// Размеры шапки
 document.onscroll = () => {	
 	onscroll();
 }
@@ -246,6 +283,8 @@ window.onresize = () => {
 			let h = zoomCalculate(screenshot).height;
 			screenshot.style.width = w + 'px';
 			screenshot.style.height = h + 'px';
+			zoom_screen_wrapper.style.width = (w + 100) + 'px'; 
+			zoom_screen_wrapper.style.height = h + 'px';
 			img_container.style.width = w + 'px';
 			img_container.style.height = h + 'px';
 		}	
